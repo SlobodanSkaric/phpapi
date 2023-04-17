@@ -14,9 +14,15 @@ $factoryRouter = FactoryRouter::getRoutes($serverMethod)->getRoutes();
 
 $controllerName = "";
 $methodName = "";
+$argumnets = "";
 
 foreach($factoryRouter as $route=>$method){
-    if($uri === $route){
+    if(preg_match($route, $uri)){
+        if(preg_match_all($route, $uri,$match)){
+            if(isset($match[1][0])){
+                $argumnets = $match[1][0];
+            }
+        }
         $controllerName = ucfirst(explode("/",$route)[1]);
         $methodName = $method;
         break;
@@ -29,3 +35,4 @@ foreach($factoryRouter as $route=>$method){
 
 var_dump($controllerName);
 var_dump($methodName);
+var_dump($argumnets);
