@@ -2,7 +2,7 @@
 
 namespace MyControl\Controllers;
 
-class Controllers{
+class Controller{
     private \PDO $dbc;
 
     public function __construct(\PDO $dbconection){
