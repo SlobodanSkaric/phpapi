@@ -2,7 +2,7 @@
 
 namespace MyControl\Controllers;
 
-class UserController extends Controllers{
+class UserController extends Controller{
     public function Register(){
         return "Register...";
     }
