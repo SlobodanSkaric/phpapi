@@ -4,7 +4,7 @@ namespace MyControl\Router;
 
 class PostRouter{
     private $postRouteList = [
-        "|^/user/register/?|" => "Register",
+        "|^/user/registration/?|" => "Register",
         "|^/user/login/?|" => "Login",
     ];
     
