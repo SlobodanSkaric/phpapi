@@ -7,11 +7,15 @@ use MyControl\Models\UserModel;
 class UserController extends Controller{
 
     public function All(){
-        return "All...";
+        $allUser = new UserModel($this->getConnection());
+
+        var_dump($allUser->All());
     }
 
-    public function getUser(){
-        return "Get one user";
+    public function getUser($id){
+        $getUSerId = new UserModel($this->getConnection());
+
+        return $getUSerId->getUserId($id);
     }
 
 

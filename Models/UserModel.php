@@ -4,6 +4,32 @@ namespace MyControl\Models;
 
 
 class UserModel extends Model{
+
+    public function All(){//this method is only admin, is very sensitive,maybe not implement in finaly version
+        $sql = "SELECT * FROM user";
+        $prep = $this->getDatabase()->prepare($sql);
+        $exe = $prep->execute();
+        $res = [];
+
+        if($exe){
+            $res = $prep->fetchAll(\PDO::FETCH_OBJ);
+        }
+
+        return json_encode($res);
+    }
+
+    public function getUserId(int $id){
+        $sql = "SELECT * FROM user WHERE id=?";
+        $prep = $this->getDatabase()->prepare($sql);
+        $exe = $prep->execute([$id]);
+        $res = NULL;
+
+        if($exe){
+            $res = $prep->fetch(\PDO::FETCH_OBJ);
+        }
+
+        return json_encode($res);
+    }
     public function userRegistration(string $username, string $email, string $password ):bool{
         $sqlCheckUserEmail = "SELECT * FROM user WHERE email=?";
         $prep = $this->getDatabase()->prepare($sqlCheckUserEmail);
@@ -25,4 +51,5 @@ class UserModel extends Model{
         return false;
        
     }
+
 }
