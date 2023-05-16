@@ -30,6 +30,19 @@ class UserModel extends Model{
 
         return json_encode($res);
     }
+
+    public function loginUser(string $email){
+        $sql = "SELECT * FROM user WHERE email=?";
+        $prep = $this->getDatabase()->prepare($sql);
+        $exe = $prep->execute([$email]);
+        $res = [];
+
+        if($exe){
+            $res = $prep->fetchAll(\PDO::FETCH_OBJ);
+        }
+
+        return $res;
+    }
     public function userRegistration(string $username, string $email, string $password ):bool{
         $sqlCheckUserEmail = "SELECT * FROM user WHERE email=?";
         $prep = $this->getDatabase()->prepare($sqlCheckUserEmail);

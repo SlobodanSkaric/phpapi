@@ -1,6 +1,7 @@
 <?php 
 header("Content-type: application/json; charset=utf-8");
 header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: content-type");
 include "./vendor/autoload.php";
 use MyControl\Controllers\DatabaseController;
 use MyControl\Router\FactoryRouter;
