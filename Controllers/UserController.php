@@ -3,6 +3,7 @@
 namespace MyControl\Controllers;
 use MyControl\Models\Model;
 use MyControl\Models\UserModel;
+use MyControl\Core\JWTToken;
 
 class UserController extends Controller{
 
@@ -30,7 +31,30 @@ class UserController extends Controller{
     }
 
     public function Login(){
-        return "Login...";
+        $clientJsonData = file_get_contents("php://input");
+        $dataDecode = json_decode($clientJsonData);
+
+        $email = $dataDecode->email;
+        $password = $dataDecode->password;
+        
+        $userModel = new UserModel($this->getConnection());
+
+        $result = $userModel->loginUser($email);
+
+        if(empty($result)){
+           return json_encode(["message", "Email address is not valid"]);
+        }
+
+        $passwordVerify = password_verify($password,$result[0]->password);
+
+        if(!$passwordVerify){
+            return json_encode(["message", "Password is not valid"]);
+        }
+
+        $time = time();
+        $token = new JWTToken($result[0]->username, $result[0]->id ,"hghghgahghgnIDFjdfijrijhnapejnfhdhyxcn"/*implement security key*/, $time);
+        var_dump($token->setToken());
+        return json_encode(["message", "true"]);
     }
 
 }

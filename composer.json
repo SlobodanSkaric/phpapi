@@ -9,6 +9,7 @@
         }
     ],
     "require": {
+        "firebase/php-jwt": "^6.4"
     },
     "autoload": {
         "psr-4": {
